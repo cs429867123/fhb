@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				width: 220px;
+				min-height: 50px;
+				list-style: none;
+			}
+			li{
+				width: 100%;
+				height: 30px;
+				margin-bottom: 5px;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<ul class="a1">
+			<button>收起</button>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+		</ul>
+		<ul class="a2">
+			<button>收起</button>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+		</ul>
+		<ul class="a3">
+			<button>收起</button>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+		</ul>
+		<ul class="a4">
+			<button>收起</button>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+			<li>一级菜单</li>
+		</ul>
+	</body>
+	<script type="text/javascript" src="jquery-3.2.1.min.js" ></script>
+	<script type="text/javascript">
+		var arr = [1,1,1,1];//数组长度和ul的个数相等，每一个数字表示ul的状态，0表示折叠，1表示展开
+		$('button').click(function(){
+			var index = $(this).parent().index();//获取每个按钮对应的父级UL索引
+			if(arr[index]==0){//如果与当前UL索引对应的数字为0，则展开ul并且把数字从0变成1，表示ul已经展开
+				$(this).siblings('li').css('display','block');
+				arr[index] = 1;
+			}else{
+				$(this).siblings('li').css('display','none');
+				arr[index] = 0;
+			}
+			var obj = JSON.stringify(arr);
+			localStorage.setItem('arr',obj)
+		})
+		
+		window.onload=function(){
+			//每次打开页面，都加载一次数组，若果数组里面有为0的数字，则把相应的ul隐藏
+			//首先，需要判断，localstorage里面有没有arr这个数据，如果有，则执行操作，没有则不执行
+			if(localStorage.getItem('arr')){
+				var obj = JSON.parse(localStorage.getItem('arr'));//把arr从localstorage里面拿出来，并且从字符串转为数组
+				arr = obj;
+				$.each(arr, function(i,v) {
+					if(v == 0){//遍历数组，如果有数值为0，则让其对应的UL隐藏
+						$('ul').eq(i).children('li').css('display','none');
+					}else{
+						$('ul').eq(i).children('li').css('display','block');
+					}
+				});
+			}
+		}
+		
+		
+		
+	</script>
+</html>
