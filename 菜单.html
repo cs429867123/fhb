@@ -2,47 +2,115 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<!--viewport 视口-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title></title>
-		<style type="text/css">
+		<script>
+			(function(){
+			var html =document.documentElement
+			html.style.fontSize = html.getBoundingClientRect().width/15 + "px"
+			})()
+			
+		</script>
+		<style>
 			div{
-				width: 10rem;
-				height: 10rem;
-				background:wheat;
+				width:5rem;
+				height:5rem;
+				background: red;
+				position: absolute;
+				top:0;
+				left: 0;
+				opacity: .5;
 			}
+			input{
+				width: 4rem;
+				height:1rem;
+			}
+			
 		</style>
- 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />		
+		
 	</head>
 	<body>
+		<input type="text" />
+		<!--<p>跳转百度</p>-->
+		<!--<a href="https://www.baidu.com">跳转百度</a>-->
 		<div></div>
-	</body>
-	<script type="text/javascript">
-		(function(){
-   			var html = document.documentElement;
-   			var htmlW = html.getBoundingClientRect().width;
-   			html.style.fontSize = htmlW/15 + "px";
-   		})()
-   		document.addEventListener("touchstart",function(e){e.preventDefault()})
-
-   		var div = document.querySelector("div");
-   		div.addEventListener("touchstart",function(){
-   			
-   		})//点击事件
-   		div.addEventListener("touchmove",function(){
-   			 
-   		})//移动事件
-   		div.addEventListener("touchend",function(){
-   			
-   		})//离开事件
-   		
 		
- 		div.addEventListener("touchstart",function(ev){
- 			
- 		})//当前对象上所有触摸点的列表
-   		div.addEventListener("touches",function(ev){
-   			alert(2)
-   		})//当前屏幕上所有触摸点的列表
-   		div.addEventListener("changedTouches",function(ev){
-   			alert(3)
-   		})//涉及当前(引发)事件的触摸列表
-	</script>
+		<script>
+			var div = document.querySelector("div");
+//			var p = document.querySelector("p");
+			var inp = document.querySelector("input")
+	/*
+	  三大事件
+	 * 触摸 ontouchstart
+	 * 移动 ontouchmove
+	 * 离开	ontouchend
+	 * 
+	 * on 这种形式  。在模拟器上  不稳定 ，所有移动端 用 addEventListener
+	 * */
+			
+			div.addEventListener("touchstart",function(){
+				console.log("点击")
+			})
+			div.addEventListener("touchmove",function(){
+				console.log("移动")
+			})
+			div.addEventListener("touchend",function(){
+				console.log("离开")
+			})
+
+	/*
+	 
+	 * 300ms问题  pc端的事件 在 移动端 有 300ms 延迟
+	 * 
+	 * */
+			
+//			div.addEventListener("click",function(){
+//				console.log("点击啦啦啦啦")
+//			})
+//			div.addEventListener("touchstart",function(){
+//				console.log("陌上")
+//			})
+
+
+	/*
+	 
+	 * 点透：点击穿透  300ms 引起的
+	 * 
+	 * 解决方案:
+	 * 1、不用a
+	 * 2、阻止浏览器默认行为
+	 *input  在阻止浏览器默认行为 的情况下 。在真机中 无法获取焦点  
+	 * 解决方案 ：ev.stopPropagation(); 
+	 * */
+		document.addEventListener("touchstart",function(e){
+			e.preventDefault();
+		});
+		inp.addEventListener("touchstart",function(ev){
+			ev.stopPropagation();
+		})		
+//		div.addEventListener("touchstart",function(){
+//				this.style.display = "none"
+//		});
+		
+//		p.addEventListener("touchstart",function(){
+//				window.location.href = "https://www.baidu.com"
+//			})
+
+//		div.addEventListener("touchstart",function(ev){
+//			//touches: 当前屏幕上所有触摸点的列表;
+//			//targetTouches: 当前对象上所有触摸点的列表;
+//			//changedTouches: 涉及当前(引发)事件的触摸点的列表*/
+//				console.log(ev.targetTouches)
+//				if(ev.changedTouches.length == 2){
+//					alert(1)
+//				}
+//		});
+
+	
+
+	
+		</script>
+	</body>
 </html>
+
